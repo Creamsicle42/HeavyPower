@@ -27,5 +27,7 @@ public class ModItemModelProviders extends ItemModelProvider {
         basicItem(ModItems.COMPUTER_HATCH_COMPONENTS.get());
         basicItem(ModItems.EVAPORATION_TOWER_CONTROL_COMPONENT.get());
         basicItem(ModItems.CENTRIFUGE_CONTROL_COMPONENT.get());
+        basicItem(ModItems.ITEM_OUTPUT_HATCH_COMPONENTS.get());
+        basicItem(ModItems.ITEM_INPUT_HATCH_COMPONENTS.get());
     }
 }

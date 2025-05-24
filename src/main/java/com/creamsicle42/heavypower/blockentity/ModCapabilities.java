@@ -5,6 +5,7 @@ import com.creamsicle42.heavypower.blockentity.fissionreactor.FissionRodBlockEnt
 import com.creamsicle42.heavypower.blockentity.misc.SimpleEnergyOutputBlockEntity;
 import com.creamsicle42.heavypower.blockentity.misc.SimpleFluidHatchBlockEntity;
 import com.creamsicle42.heavypower.HeavyPower;
+import com.creamsicle42.heavypower.blockentity.misc.SimpleItemBusBlockEntity;
 import com.creamsicle42.heavypower.blockentity.turbine.TurbineBladeHatchBlockEntity;
 import com.creamsicle42.heavypower.blockentity.turbine.TurbineControllerBlockEntity;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -48,7 +49,18 @@ public class ModCapabilities {
                 ModBlocks.FISSION_REACTOR_INPUT_HATCH.get(),
                 ModBlocks.EVAPORATION_TOWER_OUTPUT_HATCH.get(),
                 ModBlocks.EVAPORATION_TOWER_INPUT_HATCH.get(),
-                ModBlocks.CENTRIFUGE_INPUT_HATCH.get()
+                ModBlocks.CENTRIFUGE_INPUT_HATCH.get(),
+                ModBlocks.CENTRIFUGE_OUTPUT_HATCH.get()
+        );
+
+        pEvent.registerBlock(
+                Capabilities.ItemHandler.BLOCK,
+                ((level, pos, state, blockEntity, context) -> {
+                    if(state.hasProperty(BlockStateProperties.FACING) && state.getValue(BlockStateProperties.FACING) != context) return null;
+                    return new SimpleItemBusBlockEntity.ItemHandler((SimpleItemBusBlockEntity) blockEntity);
+                }),
+                ModBlocks.CENTRIFUGE_OUTPUT_BUS.get(),
+                ModBlocks.CENTRIFUGE_INPUT_BUS.get()
         );
 
         pEvent.registerBlock(

@@ -1,5 +1,6 @@
 package com.creamsicle42.heavypower.blockentity.misc;
 
+import com.creamsicle42.heavypower.ModTags;
 import com.creamsicle42.heavypower.block.ModBlocks;
 import com.creamsicle42.heavypower.block.custom.misc.IMachineHatchBlock;
 import com.creamsicle42.heavypower.misc.MultiblockHelper;
@@ -20,6 +21,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.items.IItemHandler;
@@ -92,8 +94,22 @@ public class GenericProcessingMachineBlockEntity extends BlockEntity implements 
      * @return True if the hatch has been successfully placed
      */
     @Override
-    public boolean tryMakeBlockInputHatch(BlockPos pos) {
-        return false;
+    public boolean tryMakeBlockInputHatch(BlockPos pos, Direction face) {
+        if (level == null) return false;
+        if (!isBlockHatchReplacable(pos)) return false;
+        BlockState hatchState = getFluidInputBlockState(pos);
+        if (hatchState == null) return false;
+
+        level.setBlockAndUpdate(pos, hatchState.setValue(BlockStateProperties.FACING, face));
+
+        if (level.getBlockEntity(pos) instanceof SimpleFluidHatchBlockEntity hatch) {
+            hatch.setIO(true, false);
+            hatch.setController(getBlockPos());
+            setupHatch(pos);
+            hatch.setChanged();
+        }
+
+        return true;
     }
 
     /**
@@ -103,8 +119,23 @@ public class GenericProcessingMachineBlockEntity extends BlockEntity implements 
      * @return True if the hatch has ben successfully placed
      */
     @Override
-    public boolean tryMakeBlockOutputHatch(BlockPos pos) {
-        return false;
+    public boolean tryMakeBlockOutputHatch(BlockPos pos, Direction face) {
+        if (level == null) return false;
+        if (!isBlockHatchReplacable(pos)) return false;
+        BlockState hatchState = getFluidOutputBlockState(pos);
+        if (hatchState == null) return false;
+
+        level.setBlockAndUpdate(pos, hatchState.setValue(BlockStateProperties.FACING, face));
+
+
+        if (level.getBlockEntity(pos) instanceof SimpleFluidHatchBlockEntity hatch) {
+            hatch.setIO(false, true);
+            hatch.setController(getBlockPos());
+            setupHatch(pos);
+            hatch.setChanged();
+        }
+
+        return true;
     }
 
     @Override
@@ -119,8 +150,22 @@ public class GenericProcessingMachineBlockEntity extends BlockEntity implements 
      * @return True if the hatch has been successfully placed
      */
     @Override
-    public boolean tryMakeBlockInputBus(BlockPos pos) {
-        return false;
+    public boolean tryMakeBlockInputBus(BlockPos pos, Direction face) {
+        if (level == null) return false;
+        if (!isBlockHatchReplacable(pos)) return false;
+        BlockState hatchState = getItemInputBlockState(pos);
+        if (hatchState == null) return false;
+
+        level.setBlockAndUpdate(pos, hatchState.setValue(BlockStateProperties.FACING, face));
+
+        if (level.getBlockEntity(pos) instanceof SimpleFluidHatchBlockEntity hatch) {
+            hatch.setIO(true, false);
+            hatch.setController(getBlockPos());
+            setupHatch(pos);
+            hatch.setChanged();
+        }
+
+        return true;
     }
 
     /**
@@ -130,8 +175,22 @@ public class GenericProcessingMachineBlockEntity extends BlockEntity implements 
      * @return True if the hatch has been successfully placed
      */
     @Override
-    public boolean tryMakeBlockOutputBus(BlockPos pos) {
-        return false;
+    public boolean tryMakeBlockOutputBus(BlockPos pos, Direction face) {
+        if (level == null) return false;
+        if (!isBlockHatchReplacable(pos)) return false;
+        BlockState hatchState = getItemOutputBlockState(pos);
+        if (hatchState == null) return false;
+
+        level.setBlockAndUpdate(pos, hatchState.setValue(BlockStateProperties.FACING, face));
+
+        if (level.getBlockEntity(pos) instanceof SimpleFluidHatchBlockEntity hatch) {
+            hatch.setIO(false, true);
+            hatch.setController(getBlockPos());
+            setupHatch(pos);
+            hatch.setChanged();
+        }
+
+        return true;
     }
 
     /**
@@ -214,4 +273,29 @@ public class GenericProcessingMachineBlockEntity extends BlockEntity implements 
         return null;
     }
 
+    boolean isBlockHatchReplacable(BlockPos pos) {
+        return getLevel().getBlockState(pos).is(ModTags.TIER_ONE_HATCH_BLOCKS);
+    }
+
+    protected BlockState getFluidInputBlockState(BlockPos pos) {
+        return null;
+    }
+
+    protected BlockState getFluidOutputBlockState(BlockPos pos) {
+        return null;
+    }
+
+    protected BlockState getItemInputBlockState(BlockPos pos) {
+        return null;
+    }
+
+    protected BlockState getItemOutputBlockState(BlockPos pos) {
+        return null;
+    }
+
+    protected BlockState getEnergyInputBlockState(BlockPos pos) {
+        return null;
+    }
+
+    protected void setupHatch(BlockPos pos) {}
 }

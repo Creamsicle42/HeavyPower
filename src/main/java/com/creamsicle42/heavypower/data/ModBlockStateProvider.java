@@ -54,15 +54,18 @@ public class ModBlockStateProvider extends BlockStateProvider {
         simpleBlock(ModBlocks.CENTRIFUGE_AUX_MOTOR.get());
         simpleBlock(ModBlocks.CENTRIFUGE_CASING.get());
         simpleBlock(ModBlocks.CENTRIFUGE_CONTROLLER.get());
-        simpleBlock(ModBlocks.CENTRIFUGE_OUTPUT_BUS.get());
-        simpleBlock(ModBlocks.CENTRIFUGE_INPUT_BUS.get());
-        simpleBlock(ModBlocks.CENTRIFUGE_OUTPUT_HATCH.get());
         simpleBlock(ModBlocks.CENTRIFUGE_ENERGY_INPUT.get());
 
         ResourceLocation centrifugeBaseTexture = HeavyPower.modResource("block/centrifuge_casing");
         ResourceLocation centrifugeFluidInputTexture = HeavyPower.modResource("block/centrifuge_input_hatch");
+        ResourceLocation centrifugeFluidOutputTexture = HeavyPower.modResource("block/centrifuge_output_hatch");
+        ResourceLocation centrifugeItemInputTexture = HeavyPower.modResource("block/centrifuge_input_bus");
+        ResourceLocation centrifugeItemOutputTexture = HeavyPower.modResource("block/centrifuge_output_bus");
 
         createDirectionalHatch("centrifuge_input_hatch", ModBlocks.CENTRIFUGE_INPUT_HATCH.get(), centrifugeFluidInputTexture, centrifugeBaseTexture);
+        createDirectionalHatch("centrifuge_output_hatch", ModBlocks.CENTRIFUGE_OUTPUT_HATCH.get(), centrifugeFluidOutputTexture, centrifugeBaseTexture);
+        createDirectionalHatch("centrifuge_input_bus", ModBlocks.CENTRIFUGE_INPUT_BUS.get(), centrifugeItemInputTexture, centrifugeBaseTexture);
+        createDirectionalHatch("centrifuge_output_bus", ModBlocks.CENTRIFUGE_OUTPUT_BUS.get(), centrifugeItemOutputTexture, centrifugeBaseTexture);
 
     }
 
@@ -71,21 +74,16 @@ public class ModBlockStateProvider extends BlockStateProvider {
         BlockModelBuilder northModel = models().cube("block/" + name + "/north", side, side, face, side, side, side);
         centBuilder.part().modelFile(
                 models().cube("block/" + name + "/down", face, side, side, side, side, side)
-        ).addModel().condition(BlockStateProperties.FACING, Direction.DOWN);
-        centBuilder.part().modelFile(
+        ).addModel().condition(BlockStateProperties.FACING, Direction.DOWN).end().part().modelFile(
                 models().cube("block/" + name + "/up", side, face, side, side, side, side)
-        ).addModel().condition(BlockStateProperties.FACING, Direction.UP);
-        centBuilder.part().modelFile(
+        ).addModel().condition(BlockStateProperties.FACING, Direction.UP).end().part().modelFile(
                 northModel
-        ).addModel().condition(BlockStateProperties.FACING, Direction.NORTH);
-        centBuilder.part().modelFile(
+        ).addModel().condition(BlockStateProperties.FACING, Direction.NORTH).end().part().modelFile(
                 northModel
-        ).rotationY(180).addModel().condition(BlockStateProperties.FACING, Direction.SOUTH);
-        centBuilder.part().modelFile(
+        ).rotationY(180).addModel().condition(BlockStateProperties.FACING, Direction.SOUTH).end().part().modelFile(
                 northModel
-        ).rotationY(90).addModel().condition(BlockStateProperties.FACING, Direction.EAST);
-        centBuilder.part().modelFile(
+        ).rotationY(90).addModel().condition(BlockStateProperties.FACING, Direction.EAST).end().part().modelFile(
                 northModel
-        ).rotationY(270).addModel().condition(BlockStateProperties.FACING, Direction.WEST);
+        ).rotationY(270).addModel().condition(BlockStateProperties.FACING, Direction.WEST).end();
     }
 }

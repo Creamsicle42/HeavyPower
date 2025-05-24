@@ -47,6 +47,16 @@ public class ModItems {
             FluidOutputHatchItem::new
     );
 
+    public static final DeferredItem<ItemInputHatchItem> ITEM_INPUT_HATCH_COMPONENTS = ITEMS.registerItem(
+            "item_input_hatch_components",
+            ItemInputHatchItem::new
+    );
+
+    public static final DeferredItem<ItemOutputHatchItem> ITEM_OUTPUT_HATCH_COMPONENTS = ITEMS.registerItem(
+            "item_output_hatch_components",
+            ItemOutputHatchItem::new
+    );
+
     public static final DeferredItem<Item> SMALL_IRON_TURBINE_BLADE = ITEMS.registerItem(
             "small_iron_turbine_blade",
             Item::new,

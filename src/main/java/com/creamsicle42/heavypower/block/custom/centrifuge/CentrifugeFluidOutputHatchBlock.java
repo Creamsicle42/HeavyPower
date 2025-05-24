@@ -2,28 +2,49 @@ package com.creamsicle42.heavypower.block.custom.centrifuge;
 
 import com.creamsicle42.heavypower.block.ModBlocks;
 import com.creamsicle42.heavypower.block.custom.misc.IMachineHatchBlock;
+import com.creamsicle42.heavypower.block.custom.misc.IWrenchableBlock;
 import com.creamsicle42.heavypower.blockentity.misc.SimpleFluidHatchBlockEntity;
 import com.creamsicle42.heavypower.blockentity.misc.SimpleMachinePartBlockEntity;
 import com.creamsicle42.heavypower.item.ModItems;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.material.FluidState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class CentrifugeFluidOutputHatchBlock extends BaseEntityBlock implements IMachineHatchBlock {
+public class CentrifugeFluidOutputHatchBlock extends BaseEntityBlock implements IMachineHatchBlock, IWrenchableBlock {
 
     public static final MapCodec<CentrifugeFluidOutputHatchBlock> CODEC = simpleCodec(CentrifugeFluidOutputHatchBlock::new);
+    public static final EnumProperty<Direction> FACING = BlockStateProperties.FACING;
 
     public CentrifugeFluidOutputHatchBlock(Properties properties) {
         super(properties);
+        registerDefaultState(getStateDefinition().any()
+                .setValue(FACING, Direction.NORTH)
+        );
+    }
+
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        super.createBlockStateDefinition(builder);
+        builder.add(FACING);
+    }
+
+    @Override
+    public void setFacing(Level level, BlockPos pos, Direction dir) {
+        level.setBlockAndUpdate(pos, level.getBlockState(pos).setValue(FACING, dir));
     }
 
     @Override

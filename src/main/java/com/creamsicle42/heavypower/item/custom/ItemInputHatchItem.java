@@ -1,14 +1,14 @@
 package com.creamsicle42.heavypower.item.custom;
 
-import com.creamsicle42.heavypower.blockentity.misc.IFluidHatchManager;
+import com.creamsicle42.heavypower.blockentity.misc.IItemBusManager;
 import com.creamsicle42.heavypower.blockentity.misc.SimpleMachinePartBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.UseOnContext;
 
-public class FluidOutputHatchItem extends Item {
-    public FluidOutputHatchItem(Properties properties) {
+public class ItemInputHatchItem extends Item {
+    public ItemInputHatchItem(Properties properties) {
         super(properties);
     }
 
@@ -24,12 +24,12 @@ public class FluidOutputHatchItem extends Item {
             if (controllerPos == null) {
                 return super.useOn(context);
             }
-            IFluidHatchManager controller = (IFluidHatchManager)
+            IItemBusManager controller = (IItemBusManager)
                     simpleMachinePartBlockEntity.getController().orElse(null);
             if (controller == null) {
                 return super.useOn(context);
             }
-            if (controller.tryMakeBlockOutputHatch(context.getClickedPos(), context.getClickedFace())) {
+            if (controller.tryMakeBlockInputBus(context.getClickedPos(), context.getClickedFace())) {
                 return InteractionResult.CONSUME;
             }
             return InteractionResult.FAIL;

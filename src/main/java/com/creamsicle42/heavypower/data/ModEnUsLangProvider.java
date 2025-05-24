@@ -27,8 +27,12 @@ public class ModEnUsLangProvider extends LanguageProvider {
         addFluid(ModFluidTypes.DENSE_STEAM, "Dense Steam");
         addItem(ModItems.MODERATOR_ROD, "Moderator Rod");
         addItem(ModItems.BLADE_HATCH_COMPONENT, "Turbine Blade Hatch Component");
+
         addItem(ModItems.FLUID_INPUT_HATCH_COMPONENTS, "Fluid Input Hatch Components");
         addItem(ModItems.FLUID_OUTPUT_HATCH_COMPONENTS, "Fluid Output Hatch Components");
+        addItem(ModItems.ITEM_INPUT_HATCH_COMPONENTS, "Item Input Hatch Components");
+        addItem(ModItems.ITEM_OUTPUT_HATCH_COMPONENTS, "Item Output Hatch Components");
+
         addItem(ModItems.SMALL_IRON_TURBINE_BLADE, "Small Iron Turbine Blade");
         addItem(ModItems.BLANK_DYNAMO, "Blank Dynamo");
         addItem(ModItems.DYNAMO_OUTPUT_HATCH_COMPONENTS, "Dynamo Output Hatch Components");

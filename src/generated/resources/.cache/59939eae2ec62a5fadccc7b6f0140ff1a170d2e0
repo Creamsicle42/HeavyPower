@@ -1,4 +1,4 @@
-// 1.21.1	2025-05-23T12:54:08.885075751	Item Models: heavypower
+// 1.21.1	2025-05-24T08:16:02.42010664	Item Models: heavypower
 5b5208ebf0b0d5f93677aac123755bb8af03bb1a assets/heavypower/models/item/centrifuge_control_component.json
 2362a1adc1a3fd7213738f8b051b3d6676c639b7 assets/heavypower/models/item/computer_hatch_component.json
 3f72cc600442d195a11f11f8e996cad72fa7129e assets/heavypower/models/item/dense_steam_bucket.json
@@ -9,6 +9,8 @@ f0aaa67b0da75d456455122fbeec525843c45657 assets/heavypower/models/item/evaporati
 764e50957c9b18ac51c053ff6259111733c0d089 assets/heavypower/models/item/fluid_output_hatch_components.json
 a88e00a87268476cad19c657b3f908b4df549d16 assets/heavypower/models/item/graphite_rod.json
 c0fb37b629f73203a741cece4462c9f137f414f7 assets/heavypower/models/item/heat_exchanger_rod.json
+cee67aa4b6c2890385e56be0c70d6f5fc0bd44b1 assets/heavypower/models/item/item_input_hatch_components.json
+8cd476f821371c5ac48283a2da157ef82b24d911 assets/heavypower/models/item/item_output_hatch_components.json
 6ed9059f72992bb615db3a2372a955f6570c5195 assets/heavypower/models/item/moderator_rod.json
 2378a3de41520b83a0c9981371a1be08a40c647b assets/heavypower/models/item/small_iron_turbine_blade.json
 3aab364108215ca13b440b558a6eb17117344fc4 assets/heavypower/models/item/turbine_blade_hatch_component.json

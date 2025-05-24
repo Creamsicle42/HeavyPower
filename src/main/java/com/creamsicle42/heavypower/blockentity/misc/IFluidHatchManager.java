@@ -28,7 +28,7 @@ public interface IFluidHatchManager {
      * @param face The clicked hatch face
      * @return True if the hatch has been successfully placed
      */
-    default boolean tryMakeBlockOutHatch(BlockPos pos, Direction face) {
+    default boolean tryMakeBlockOutputHatch(BlockPos pos, Direction face) {
         return tryMakeBlockOutputHatch(pos);
     }
 
@@ -37,12 +37,16 @@ public interface IFluidHatchManager {
      * @param pos The position to make an input hatch
      * @return True if the hatch has been successfully placed
      */
-    boolean tryMakeBlockInputHatch(BlockPos pos);
+    default boolean tryMakeBlockInputHatch(BlockPos pos) {
+        return false;
+    }
 
     /**
      * Attempt to setup block as output hatch
      * @param pos The position to make an output hatch
      * @return True if the hatch has ben successfully placed
      */
-    boolean tryMakeBlockOutputHatch(BlockPos pos);
+    default boolean tryMakeBlockOutputHatch(BlockPos pos) {
+        return false;
+    }
 }

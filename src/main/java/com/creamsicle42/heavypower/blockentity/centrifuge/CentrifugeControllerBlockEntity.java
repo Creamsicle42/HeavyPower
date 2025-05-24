@@ -50,20 +50,28 @@ public class CentrifugeControllerBlockEntity extends GenericProcessingMachineBlo
     }
 
     @Override
-    public boolean tryMakeBlockInputHatch(BlockPos pos, Direction face) {
-        if (level == null) return false;
-        if (!level.getBlockState(pos).is(ModBlocks.CENTRIFUGE_CASING)) return false;
+    protected BlockState getFluidInputBlockState(BlockPos pos) {
+        return ModBlocks.CENTRIFUGE_INPUT_HATCH.get().defaultBlockState();
+    }
 
-        level.setBlockAndUpdate(pos, ModBlocks.CENTRIFUGE_INPUT_HATCH.get().defaultBlockState().setValue(BlockStateProperties.FACING, face));
+    @Override
+    protected BlockState getFluidOutputBlockState(BlockPos pos) {
+        return ModBlocks.CENTRIFUGE_OUTPUT_HATCH.get().defaultBlockState();
+    }
 
-        if (level.getBlockEntity(pos) instanceof SimpleFluidHatchBlockEntity hatch) {
-            hatch.setTargetTank(0);
-            hatch.setIO(true, false);
-            hatch.setController(getBlockPos());
-            hatch.setChanged();
-        }
+    @Override
+    protected BlockState getItemInputBlockState(BlockPos pos) {
+        return ModBlocks.CENTRIFUGE_INPUT_BUS.get().defaultBlockState();
+    }
 
-        return true;
+    @Override
+    protected BlockState getItemOutputBlockState(BlockPos pos) {
+        return ModBlocks.CENTRIFUGE_OUTPUT_BUS.get().defaultBlockState();
+    }
+
+    @Override
+    protected BlockState getEnergyInputBlockState(BlockPos pos) {
+        return ModBlocks.CENTRIFUGE_ENERGY_INPUT.get().defaultBlockState();
     }
 }
 

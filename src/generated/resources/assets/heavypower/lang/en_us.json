@@ -47,6 +47,8 @@
   "item.heavypower.fluid_output_hatch_components": "Fluid Output Hatch Components",
   "item.heavypower.graphite_rod": "Graphite Moderator Rod",
   "item.heavypower.heat_exchanger_rod": "Heat Exchanger Rod",
+  "item.heavypower.item_input_hatch_components": "Item Input Hatch Components",
+  "item.heavypower.item_output_hatch_components": "Item Output Hatch Components",
   "item.heavypower.moderator_rod": "Moderator Rod",
   "item.heavypower.small_iron_turbine_blade": "Small Iron Turbine Blade",
   "item.heavypower.turbine_blade_hatch_component": "Turbine Blade Hatch Component",
