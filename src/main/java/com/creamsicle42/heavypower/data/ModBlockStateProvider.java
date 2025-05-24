@@ -1,0 +1,90 @@
+package com.creamsicle42.heavypower.data;
+
+import com.creamsicle42.heavypower.block.ModBlocks;
+import com.creamsicle42.heavypower.HeavyPower;
+import net.minecraft.core.Direction;
+import net.minecraft.data.PackOutput;
+import net.minecraft.data.models.ModelProvider;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.neoforged.neoforge.client.model.generators.*;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
+
+public class ModBlockStateProvider extends BlockStateProvider {
+    public ModBlockStateProvider(PackOutput output, ExistingFileHelper exFileHelper) {
+        super(output, HeavyPower.MODID, exFileHelper);
+    }
+
+    @Override
+    protected void registerStatesAndModels() {
+
+        simpleBlockWithItem(ModBlocks.TURBINE_CORE.get(), models().cubeAll("turbine_core", ResourceLocation.fromNamespaceAndPath(HeavyPower.MODID, "block/turbine_core")));
+        simpleBlockWithItem(ModBlocks.TURBINE_CASING.get(), models().cubeAll("turbine_casing", ResourceLocation.fromNamespaceAndPath(HeavyPower.MODID, "block/turbine_casing")));
+        simpleBlockWithItem(ModBlocks.COPPER_DYNAMO.get(), models().cubeAll("copper_dynamo", ResourceLocation.fromNamespaceAndPath(HeavyPower.MODID, "block/copper_dynamo")));
+        simpleBlockWithItem(ModBlocks.BLANK_DYNAMO.get(), models().cubeAll("blank_dynamo", ResourceLocation.fromNamespaceAndPath(HeavyPower.MODID, "block/blank_dynamo")));
+        simpleBlock(ModBlocks.TURBINE_BLADE_HATCH.get());
+        simpleBlock(ModBlocks.TURBINE_CONTROLLER.get());
+        simpleBlock(ModBlocks.TURBINE_FLUID_INPUT_HATCH.get());
+        simpleBlock(ModBlocks.TURBINE_FLUID_OUTPUT_HATCH.get());
+        simpleBlock(ModBlocks.DYNAMO_OUTPUT_HATCH.get());
+
+        simpleBlock(ModBlocks.FISSION_REACTOR_CONTROLLER.get());
+        simpleBlock(ModBlocks.FISSION_REACTOR_CASING.get());
+        simpleBlock(ModBlocks.FISSION_REACTOR_ROD.get());
+        simpleBlock(ModBlocks.FISSION_REACTOR_INPUT_HATCH.get());
+        simpleBlock(ModBlocks.FISSION_REACTOR_OUTPUT_HATCH.get());
+        simpleBlock(ModBlocks.FISSION_COMPUTER_HATCH.get());
+
+        simpleBlockWithItem(ModBlocks.RADIATION_PROOF_CASING.get(), models().cubeAll("radiation_proof_casing", HeavyPower.modResource("block/radiation_proof_casing")));
+        simpleBlockWithItem(ModBlocks.MECHANIZED_RADIATION_PROOF_CASING.get(), models().cubeAll("mechanized_radiation_proof_casing", HeavyPower.modResource("block/mechanized_radiation_proof_casing")));
+        simpleBlockWithItem(ModBlocks.REINFORCED_CONCRETE_CASING.get(), models().cubeAll("reinforced_concrete_casing", HeavyPower.modResource("block/reinforced_concrete_casing")));
+        simpleBlockWithItem(ModBlocks.STEEL_MESH_CASING.get(), models().cubeAll("steel_mesh_casing", HeavyPower.modResource("block/steel_mesh_casing")));
+        simpleBlockWithItem(ModBlocks.TIER_ONE_CASING.get(), models().cubeAll("tier_one_casing", HeavyPower.modResource("block/tier_one_casing")));
+        simpleBlockWithItem(ModBlocks.MECHANIZED_TIER_ONE_CASING.get(), models().cubeAll("mechanized_tier_one_casing", HeavyPower.modResource("block/mechanized_tier_one_casing")));
+        simpleBlockWithItem(ModBlocks.AUX_TIER_ONE_CASING.get(), models().cubeAll("aux_tier_one_casing", HeavyPower.modResource("block/aux_tier_one_casing")));
+
+        simpleBlock(ModBlocks.EVAPORATION_TOWER_INPUT_HATCH.get());
+        simpleBlock(ModBlocks.EVAPORATION_TOWER_OUTPUT_HATCH.get());
+        simpleBlock(ModBlocks.EVAPORATION_TOWER_CASING.get());
+        simpleBlock(ModBlocks.EVAPORATION_TOWER_MESH_CASING.get());
+        simpleBlock(ModBlocks.EVAPORATION_TOWER_CONTROLLER.get());
+
+        simpleBlock(ModBlocks.CENTRIFUGE_MOTOR.get());
+        simpleBlock(ModBlocks.CENTRIFUGE_AUX_MOTOR.get());
+        simpleBlock(ModBlocks.CENTRIFUGE_CASING.get());
+        simpleBlock(ModBlocks.CENTRIFUGE_CONTROLLER.get());
+        simpleBlock(ModBlocks.CENTRIFUGE_OUTPUT_BUS.get());
+        simpleBlock(ModBlocks.CENTRIFUGE_INPUT_BUS.get());
+        simpleBlock(ModBlocks.CENTRIFUGE_OUTPUT_HATCH.get());
+        simpleBlock(ModBlocks.CENTRIFUGE_ENERGY_INPUT.get());
+
+        ResourceLocation centrifugeBaseTexture = HeavyPower.modResource("block/centrifuge_casing");
+        ResourceLocation centrifugeFluidInputTexture = HeavyPower.modResource("block/centrifuge_input_hatch");
+
+        createDirectionalHatch("centrifuge_input_hatch", ModBlocks.CENTRIFUGE_INPUT_HATCH.get(), centrifugeFluidInputTexture, centrifugeBaseTexture);
+
+    }
+
+    void createDirectionalHatch(String name, Block block, ResourceLocation face, ResourceLocation side) {
+        MultiPartBlockStateBuilder centBuilder = getMultipartBuilder(block);
+        centBuilder.part().modelFile(
+                models().cube(name + "_down", face, side, side, side, side, side)
+        ).addModel().condition(BlockStateProperties.FACING, Direction.DOWN);
+        centBuilder.part().modelFile(
+                models().cube(name + "_up", side, face, side, side, side, side)
+        ).addModel().condition(BlockStateProperties.FACING, Direction.UP);
+        centBuilder.part().modelFile(
+                models().cube(name + "_north", side, side, face, side, side, side)
+        ).addModel().condition(BlockStateProperties.FACING, Direction.NORTH);
+        centBuilder.part().modelFile(
+                models().cube(name + "_south", side, side, side, face, side, side)
+        ).addModel().condition(BlockStateProperties.FACING, Direction.SOUTH);
+        centBuilder.part().modelFile(
+                models().cube(name + "_east", side, side, side, side, face, side)
+        ).addModel().condition(BlockStateProperties.FACING, Direction.EAST);
+        centBuilder.part().modelFile(
+                models().cube(name + "_west", side, side, side, side, side, face)
+        ).addModel().condition(BlockStateProperties.FACING, Direction.WEST);
+    }
+}

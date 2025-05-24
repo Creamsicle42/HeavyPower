@@ -1,0 +1,11 @@
+{
+  "type": "heavypower:evaporation",
+  "input": {
+    "amount": 100,
+    "id": "heavypower:low_density_steam"
+  },
+  "output": {
+    "amount": 10,
+    "id": "minecraft:water"
+  }
+}

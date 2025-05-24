@@ -1,0 +1,14 @@
+{
+  "type": "heavypower:turbine",
+  "energyPerMB": 100.0,
+  "expPerHundred": 0.005,
+  "flowSpeedPerMB": 10.0,
+  "inputStack": {
+    "amount": 1,
+    "id": "heavypower:dense_steam"
+  },
+  "outputStack": {
+    "amount": 5,
+    "id": "heavypower:low_density_steam"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "heavypower:block/turbine_fluid_output_hatch"
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "heavypower:item/fission_reactor_control_component"
+  }
+}

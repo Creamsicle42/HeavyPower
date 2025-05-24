@@ -1,0 +1,7 @@
+// 1.21.1	2025-05-22T13:53:40.70236097	Recipes
+fd9524e018c5ffba08fe1ec4118cc5fddce7d311 data/heavypower/advancement/recipes/dense_steam_turbine.json
+b36a178fb09e87031568b1fcf1c8374d30729a1e data/heavypower/advancement/recipes/low_density_steam_evaporation.json
+c63e6756ccc69c906b5b52fcbed74880789b6b0f data/heavypower/advancement/recipes/water_boiling.json
+15c210fe6e7b0348f6622e60305dba62dc5fb1ef data/heavypower/recipe/dense_steam_turbine.json
+b4b9020bed49407cae794b1f8342e96f604ee9b2 data/heavypower/recipe/low_density_steam_evaporation.json
+1167c95906ca9b9dcc1881f6f8d6e71e6724f549 data/heavypower/recipe/water_boiling.json

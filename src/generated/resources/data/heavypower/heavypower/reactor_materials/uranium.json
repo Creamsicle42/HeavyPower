@@ -1,0 +1,15 @@
+{
+  "coolNeutProductionRate": 0.0,
+  "coolNeutronAbsorption": 0.8,
+  "coolNeutronConversion": 0.1,
+  "coolNeutronPassive": 0.0,
+  "heatAbsorbRate": 0.0,
+  "heatProductionRate": 800.5,
+  "hotNeutProductionRate": 2.0,
+  "hotNeutronAbsorption": 0.01,
+  "hotNeutronConversion": 0.0,
+  "hotNeutronPassive": 0.5,
+  "isCoolant": false,
+  "meltdownTemp": 13000.0,
+  "name": "uranium"
+}

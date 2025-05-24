@@ -1,0 +1,10 @@
+// 1.21.1	2025-05-23T12:47:25.875167215	Tags for minecraft:block mod id heavypower
+a82cc5f52451aeb3a5a25df5c34c0bb474bb98d1 data/heavypower/tags/block/evaporation_tower_condensers.json
+3f22bb61a4db174ea0526c72bb984f66be740a1d data/heavypower/tags/block/fission_reactor_blocks.json
+23eadaf9108761ddc093c7eb23480b03ec9ed893 data/heavypower/tags/block/fission_reactor_casings.json
+2476011b0436167cf665b935bc14b07e7197dbd9 data/heavypower/tags/block/fission_reactor_toppers.json
+ee4fb79f43e724f0d7202a4340997c25f5d00f17 data/heavypower/tags/block/tier_one_hatch_blocks.json
+e13e716b887fe4546eec2a46874340657acae7bb data/heavypower/tags/block/tier_one_machine_blocks.json
+88249fe12fd262d5cc0b5be39e8bf2f32ddd0e02 data/heavypower/tags/block/turbine_blocks.json
+62aac67baa62a582f4c05255eb0c53f27c2102f5 data/heavypower/tags/block/turbine_casings.json
+07cd984f4371563955da9e0d29bd4b0fd36756dd data/heavypower/tags/block/turbine_coils.json

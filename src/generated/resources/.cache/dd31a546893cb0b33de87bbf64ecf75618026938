@@ -1,0 +1,4 @@
+// 1.21.1	2025-05-20T09:40:37.388822632	Tags for minecraft:fluid mod id vanilla
+cf3608bd187922aeb48c566c19e8482b0dca34c7 data/heavypower/tags/fluid/fission_reactor_coolants.json
+e191d5f912e05091b3a0b1df17f4c4181e04d96f data/minecraft/tags/fluid/lava.json
+c9ae54a7510073b17edf82f7591e14bdb2c51837 data/minecraft/tags/fluid/water.json

@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "heavypower:block/fission_reactor_controller"
+    }
+  }
+}

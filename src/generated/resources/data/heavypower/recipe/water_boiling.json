@@ -1,0 +1,13 @@
+{
+  "type": "heavypower:fluid_heating",
+  "heatPerMillibucket": 100,
+  "inputType": {
+    "amount": 1,
+    "id": "minecraft:water"
+  },
+  "output": {
+    "amount": 2,
+    "id": "heavypower:dense_steam"
+  },
+  "temperature": 100.0
+}

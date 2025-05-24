@@ -1,0 +1,15 @@
+{
+  "coolNeutProductionRate": 0.0,
+  "coolNeutronAbsorption": 0.0,
+  "coolNeutronConversion": 0.2,
+  "coolNeutronPassive": 0.0,
+  "heatAbsorbRate": 0.0,
+  "heatProductionRate": 0.0,
+  "hotNeutProductionRate": 0.0,
+  "hotNeutronAbsorption": 0.0,
+  "hotNeutronConversion": 0.7,
+  "hotNeutronPassive": 0.0,
+  "isCoolant": false,
+  "meltdownTemp": 0.0,
+  "name": "graphite"
+}

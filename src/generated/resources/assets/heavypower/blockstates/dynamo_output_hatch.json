@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "heavypower:block/dynamo_output_hatch"
+    }
+  }
+}

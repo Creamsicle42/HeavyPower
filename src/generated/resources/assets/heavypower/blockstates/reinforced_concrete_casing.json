@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "heavypower:block/reinforced_concrete_casing"
+    }
+  }
+}

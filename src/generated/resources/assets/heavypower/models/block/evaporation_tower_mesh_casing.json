@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "heavypower:block/evaporation_tower_mesh_casing"
+  }
+}

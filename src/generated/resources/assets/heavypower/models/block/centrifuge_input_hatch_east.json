@@ -1,0 +1,11 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "heavypower:block/centrifuge_casing",
+    "east": "heavypower:block/centrifuge_input_hatch",
+    "north": "heavypower:block/centrifuge_casing",
+    "south": "heavypower:block/centrifuge_casing",
+    "up": "heavypower:block/centrifuge_casing",
+    "west": "heavypower:block/centrifuge_casing"
+  }
+}

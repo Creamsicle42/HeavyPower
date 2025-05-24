@@ -1,0 +1,7 @@
+{
+  "baseEfficiency": 0.8,
+  "clampForce": 0.5,
+  "efficiencyBonus": 0.02,
+  "efficiencyFalloff": 3000.0,
+  "idealSpeed": 6000.0
+}
