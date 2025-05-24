@@ -53,8 +53,10 @@ public class ModCapabilities {
 
         pEvent.registerBlock(
                 Capabilities.EnergyStorage.BLOCK,
-                (pLevel, pPos, pState, pBlockEntity, pSide) ->
-                        new SimpleEnergyOutputBlockEntity.EnergyHandler(),
+                (pLevel, pPos, pState, pBlockEntity, pSide) -> {
+                        if(pState.hasProperty(BlockStateProperties.FACING) && pState.getValue(BlockStateProperties.FACING) != pSide) return null;
+                        return new SimpleEnergyOutputBlockEntity.EnergyHandler();
+                    },
                 ModBlocks.DYNAMO_OUTPUT_HATCH.get()
         );
 
