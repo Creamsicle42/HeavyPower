@@ -68,23 +68,24 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
     void createDirectionalHatch(String name, Block block, ResourceLocation face, ResourceLocation side) {
         MultiPartBlockStateBuilder centBuilder = getMultipartBuilder(block);
+        BlockModelBuilder northModel = models().cube("block/" + name + "/north", side, side, face, side, side, side);
         centBuilder.part().modelFile(
-                models().cube(name + "_down", face, side, side, side, side, side)
+                models().cube("block/" + name + "/down", face, side, side, side, side, side)
         ).addModel().condition(BlockStateProperties.FACING, Direction.DOWN);
         centBuilder.part().modelFile(
-                models().cube(name + "_up", side, face, side, side, side, side)
+                models().cube("block/" + name + "/up", side, face, side, side, side, side)
         ).addModel().condition(BlockStateProperties.FACING, Direction.UP);
         centBuilder.part().modelFile(
-                models().cube(name + "_north", side, side, face, side, side, side)
+                northModel
         ).addModel().condition(BlockStateProperties.FACING, Direction.NORTH);
         centBuilder.part().modelFile(
-                models().cube(name + "_south", side, side, side, face, side, side)
-        ).addModel().condition(BlockStateProperties.FACING, Direction.SOUTH);
+                northModel
+        ).rotationY(180).addModel().condition(BlockStateProperties.FACING, Direction.SOUTH);
         centBuilder.part().modelFile(
-                models().cube(name + "_east", side, side, side, side, face, side)
-        ).addModel().condition(BlockStateProperties.FACING, Direction.EAST);
+                northModel
+        ).rotationY(90).addModel().condition(BlockStateProperties.FACING, Direction.EAST);
         centBuilder.part().modelFile(
-                models().cube(name + "_west", side, side, side, side, side, face)
-        ).addModel().condition(BlockStateProperties.FACING, Direction.WEST);
+                northModel
+        ).rotationY(270).addModel().condition(BlockStateProperties.FACING, Direction.WEST);
     }
 }

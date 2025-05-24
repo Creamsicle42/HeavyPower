@@ -2,7 +2,7 @@
   "multipart": [
     {
       "apply": {
-        "model": "heavypower:block/centrifuge_input_hatch_down"
+        "model": "heavypower:block/centrifuge_input_hatch/down"
       },
       "when": {
         "facing": "down"
@@ -10,7 +10,7 @@
     },
     {
       "apply": {
-        "model": "heavypower:block/centrifuge_input_hatch_up"
+        "model": "heavypower:block/centrifuge_input_hatch/up"
       },
       "when": {
         "facing": "up"
@@ -18,7 +18,7 @@
     },
     {
       "apply": {
-        "model": "heavypower:block/centrifuge_input_hatch_north"
+        "model": "heavypower:block/centrifuge_input_hatch/north"
       },
       "when": {
         "facing": "north"
@@ -26,7 +26,8 @@
     },
     {
       "apply": {
-        "model": "heavypower:block/centrifuge_input_hatch_south"
+        "model": "heavypower:block/centrifuge_input_hatch/north",
+        "y": 180
       },
       "when": {
         "facing": "south"
@@ -34,7 +35,8 @@
     },
     {
       "apply": {
-        "model": "heavypower:block/centrifuge_input_hatch_east"
+        "model": "heavypower:block/centrifuge_input_hatch/north",
+        "y": 90
       },
       "when": {
         "facing": "east"
@@ -42,7 +44,8 @@
     },
     {
       "apply": {
-        "model": "heavypower:block/centrifuge_input_hatch_west"
+        "model": "heavypower:block/centrifuge_input_hatch/north",
+        "y": 270
       },
       "when": {
         "facing": "west"
