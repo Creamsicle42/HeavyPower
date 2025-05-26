@@ -36,8 +36,26 @@ public class CentrifugeControllerBlockEntity extends GenericProcessingMachineBlo
     }
 
     @Override
-    public void initializeMachineStats(MultiblockHelper.WorldArea formationArea) {
-        super.initializeMachineStats(formationArea);
+    protected MultiblockStats initializeMachineStats(MultiblockHelper.WorldArea formationArea) {
+        int motorCount = 0;
+        double boosterLevel = 0.0;
+
+        if (level == null) {
+            return new MultiblockStats(1, 0.0);
+        }
+
+        for (BlockState state : formationArea.getIterator().stream().map(p -> level.getBlockState(p)).toList()) {
+            if (state.is(ModBlocks.CENTRIFUGE_MOTOR)) {
+                motorCount++;
+                continue;
+            }
+            if (state.is(ModBlocks.CENTRIFUGE_AUX_MOTOR)) {
+                boosterLevel += 0.1;
+                continue;
+            }
+        }
+
+        return new MultiblockStats(motorCount, boosterLevel);
     }
 
     @Override
@@ -47,6 +65,26 @@ public class CentrifugeControllerBlockEntity extends GenericProcessingMachineBlo
                 ModBlocks.CENTRIFUGE_AUX_MOTOR.get().defaultBlockState(), ModBlocks.AUX_TIER_ONE_CASING.get().defaultBlockState(),
                 ModBlocks.CENTRIFUGE_MOTOR.get().defaultBlockState(), ModBlocks.MECHANIZED_TIER_ONE_CASING.get().defaultBlockState()
         );
+    }
+
+    @Override
+    protected int getFluidInputSlotCount() {
+        return 1;
+    }
+
+    @Override
+    protected int getFluidOutputSlotCount() {
+        return 2;
+    }
+
+    @Override
+    protected int getItemInputSlotCount() {
+        return 1;
+    }
+
+    @Override
+    protected int getItemOutputSlotCount() {
+        return 6;
     }
 
     @Override

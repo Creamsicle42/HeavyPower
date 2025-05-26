@@ -39,8 +39,8 @@ public class ModCapabilities {
         pEvent.registerBlock(
                 Capabilities.FluidHandler.BLOCK,
                 (pLevel, pPos, pState, pBlockEntity, pSide) -> {
-                    if(pState.hasProperty(BlockStateProperties.FACING) && pState.getValue(BlockStateProperties.FACING) != pSide) return null;
-                    assert pBlockEntity != null;
+                    //if(pState.hasProperty(BlockStateProperties.FACING) && pState.getValue(BlockStateProperties.FACING) != pSide) return null;
+                    if (pBlockEntity == null) return null;
                     return new SimpleFluidHatchBlockEntity.FluidHandler((SimpleFluidHatchBlockEntity) pBlockEntity);
                 },
                 ModBlocks.TURBINE_FLUID_INPUT_HATCH.get(),

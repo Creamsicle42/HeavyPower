@@ -1,12 +1,18 @@
 package com.creamsicle42.heavypower.blockentity.misc;
 
 import com.creamsicle42.heavypower.blockentity.ModBlockEntities;
+import com.creamsicle42.heavypower.misc.ISlotFluidHandler;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import org.jetbrains.annotations.NotNull;
@@ -50,6 +56,20 @@ public class SimpleFluidHatchBlockEntity extends SimpleMachinePartBlockEntity{
         this.allowOutput = out;
     }
 
+    public void printDiagnostics(Direction face) {
+        IFluidHandler handler = level.getCapability(Capabilities.FluidHandler.BLOCK, getBlockPos(), face);
+        Player player = Minecraft.getInstance().player;
+        player.sendSystemMessage(Component.literal("Diagnostics for fluid hatch " + getBlockPos() + " side " + face));
+        if (handler == null) {
+            player.sendSystemMessage(Component.literal("+ No handler for this side."));
+        } else {
+            for (int i = 0; i < handler.getTanks(); i++) {
+                player.sendSystemMessage(Component.literal("+ Tank " + i));
+                player.sendSystemMessage(Component.literal(" - Stack: " + handler.getFluidInTank(i)));
+            }
+        }
+    }
+
     public void setTargetTank(int targetTank) {
         this.targetTank = targetTank;
     }
@@ -58,10 +78,12 @@ public class SimpleFluidHatchBlockEntity extends SimpleMachinePartBlockEntity{
     public static class FluidHandler implements IFluidHandler {
 
         private final SimpleFluidHatchBlockEntity hatchBlockEntity;
-        private final IFluidHandler fluidHandler;
+        private final ISlotFluidHandler fluidHandler;
+        private final int slot;
 
         public FluidHandler(SimpleFluidHatchBlockEntity inputHatchBlockEntity) {
             this.hatchBlockEntity = inputHatchBlockEntity;
+            slot = hatchBlockEntity.targetTank;
             if (inputHatchBlockEntity.level instanceof ServerLevel serverLevel) {
                 this.fluidHandler =  inputHatchBlockEntity.getController().map(
                         iSimpleMachineController -> ((IFluidHatchManager)iSimpleMachineController).getFluidHandler()
@@ -102,7 +124,7 @@ public class SimpleFluidHatchBlockEntity extends SimpleMachinePartBlockEntity{
         @Override
         public FluidStack getFluidInTank(int tank) {
             if (fluidHandler == null) {return FluidStack.EMPTY;}
-            return fluidHandler.getFluidInTank(hatchBlockEntity.targetTank);
+            return fluidHandler.getFluidInTank(slot);
         }
 
         /**
@@ -113,7 +135,7 @@ public class SimpleFluidHatchBlockEntity extends SimpleMachinePartBlockEntity{
          */
         @Override
         public int getTankCapacity(int tank) {
-            return fluidHandler.getTankCapacity(hatchBlockEntity.targetTank);
+            return fluidHandler.getTankCapacity(slot);
         }
 
         /**
@@ -127,7 +149,7 @@ public class SimpleFluidHatchBlockEntity extends SimpleMachinePartBlockEntity{
          */
         @Override
         public boolean isFluidValid(int tank, FluidStack stack) {
-            return fluidHandler.isFluidValid(hatchBlockEntity.targetTank, stack);
+            return fluidHandler.isFluidValid(slot, stack);
         }
 
         /**
@@ -139,9 +161,11 @@ public class SimpleFluidHatchBlockEntity extends SimpleMachinePartBlockEntity{
          */
         @Override
         public int fill(FluidStack resource, FluidAction action) {
-            if (fluidHandler == null) {return 0;}
-            if (!hatchBlockEntity.allowInput) {return 0;}
-            return fluidHandler.fill(resource, action);
+            if (fluidHandler == null) {
+                return 0;}
+            if (!hatchBlockEntity.allowInput) {
+                return 0;}
+            return fluidHandler.fill(slot, resource, action);
         }
 
         /**
@@ -156,7 +180,7 @@ public class SimpleFluidHatchBlockEntity extends SimpleMachinePartBlockEntity{
         public FluidStack drain(FluidStack resource, FluidAction action) {
             if (!hatchBlockEntity.allowOutput) {return FluidStack.EMPTY;}
             if (fluidHandler == null) {return FluidStack.EMPTY;}
-            return fluidHandler.drain(resource, action);
+            return fluidHandler.drain(slot, resource, action);
         }
 
         /**
@@ -173,7 +197,7 @@ public class SimpleFluidHatchBlockEntity extends SimpleMachinePartBlockEntity{
         public FluidStack drain(int maxDrain, FluidAction action) {
             if (!hatchBlockEntity.allowOutput) {return FluidStack.EMPTY;}
             if (fluidHandler == null) {return FluidStack.EMPTY;}
-            return fluidHandler.drain(maxDrain, action);
+            return fluidHandler.drain(slot, maxDrain, action);
         }
     }
 }

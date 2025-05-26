@@ -5,11 +5,11 @@ import com.creamsicle42.heavypower.ModTags;
 import com.creamsicle42.heavypower.block.ModBlocks;
 import com.creamsicle42.heavypower.block.custom.misc.IMachineHatchBlock;
 import com.creamsicle42.heavypower.blockentity.ModBlockEntities;
-import com.creamsicle42.heavypower.blockentity.fissionreactor.FissionReactorControllerBlockEntity;
 import com.creamsicle42.heavypower.blockentity.misc.IFluidHatchManager;
 import com.creamsicle42.heavypower.blockentity.misc.ISimpleMachineController;
 import com.creamsicle42.heavypower.blockentity.misc.SimpleFluidHatchBlockEntity;
 import com.creamsicle42.heavypower.blockentity.misc.SimpleMachinePartBlockEntity;
+import com.creamsicle42.heavypower.misc.ISlotFluidHandler;
 import com.creamsicle42.heavypower.misc.MultiblockHelper;
 import com.creamsicle42.heavypower.recipe.ModRecipeTypes;
 import com.creamsicle42.heavypower.recipe.inputs.EvaporationRecipeInput;
@@ -19,8 +19,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -30,9 +28,7 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.fml.config.ModConfig;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
@@ -93,7 +89,7 @@ public class EvaporationTowerControllerBlockEntity extends BlockEntity implement
     }
 
     @Override
-    public IFluidHandler getFluidHandler() {
+    public ISlotFluidHandler getFluidHandler() {
         return fluidHandler;
     }
 
@@ -350,7 +346,7 @@ public class EvaporationTowerControllerBlockEntity extends BlockEntity implement
 
     }
 
-    private static class EvapTowerFluidHandler implements IFluidHandler {
+    private static class EvapTowerFluidHandler implements ISlotFluidHandler {
 
         public static final String INPUT_TAG = "InputTank";
         public static final String OUTOUT_TAG = "OutputTank";

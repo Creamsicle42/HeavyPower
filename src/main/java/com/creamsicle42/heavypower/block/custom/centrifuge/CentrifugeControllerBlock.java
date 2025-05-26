@@ -5,6 +5,7 @@ import com.creamsicle42.heavypower.block.custom.misc.IMachineHatchBlock;
 import com.creamsicle42.heavypower.blockentity.ModBlockEntities;
 import com.creamsicle42.heavypower.blockentity.centrifuge.CentrifugeControllerBlockEntity;
 import com.creamsicle42.heavypower.blockentity.evaporationtower.EvaporationTowerControllerBlockEntity;
+import com.creamsicle42.heavypower.blockentity.misc.GenericProcessingMachineBlockEntity;
 import com.creamsicle42.heavypower.blockentity.misc.ISimpleMachineController;
 import com.creamsicle42.heavypower.item.ModItems;
 import com.mojang.serialization.MapCodec;
@@ -49,19 +50,9 @@ public class CentrifugeControllerBlock extends Block implements EntityBlock, IMa
 
     @Override
     public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
-        return blockEntityType == ModBlockEntities.EVAPORATION_TOWER_CONTROLLER_BE.get() ? (BlockEntityTicker<T>)EvaporationTowerControllerBlockEntity::tick : null;
+        return blockEntityType == ModBlockEntities.CENTRIFUGE_CONTROLLER_BE.get() ? (BlockEntityTicker<T>) GenericProcessingMachineBlockEntity::tick : null;
     }
 
-    @Override
-    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
-        if (level.isClientSide()) {
-            return super.useWithoutItem(state, level, pos, player, hitResult);
-        }
-        if (level.getBlockEntity(pos) instanceof EvaporationTowerControllerBlockEntity evaporationTowerControllerBlockEntity) {
-            evaporationTowerControllerBlockEntity.printDiagnostics();
-        }
-        return super.useWithoutItem(state, level, pos, player, hitResult);
-    }
 
     /**
      * Get the item stack to be returned when the machine associated with this block is deconstructed

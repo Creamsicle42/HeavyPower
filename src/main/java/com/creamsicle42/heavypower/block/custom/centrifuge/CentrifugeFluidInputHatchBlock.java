@@ -9,6 +9,7 @@ import com.creamsicle42.heavypower.item.ModItems;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -21,6 +22,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -74,8 +76,13 @@ public class CentrifugeFluidInputHatchBlock extends BaseEntityBlock implements I
         return super.onDestroyedByPlayer(state, level, pos, player, willHarvest, fluid);
     }
 
-
-
+    @Override
+    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
+        if (level.getBlockEntity(pos) instanceof SimpleFluidHatchBlockEntity hatchBlock) {
+            hatchBlock.printDiagnostics(hitResult.getDirection());
+        }
+        return super.useWithoutItem(state, level, pos, player, hitResult);
+    }
 
     /**
      * Get the item stack to be returned when the machine associated with this block is deconstructed

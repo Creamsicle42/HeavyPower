@@ -1,8 +1,8 @@
 package com.creamsicle42.heavypower.blockentity.misc;
 
+import com.creamsicle42.heavypower.misc.ISlotFluidHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 
 
 /**
@@ -10,7 +10,7 @@ import net.neoforged.neoforge.fluids.capability.IFluidHandler;
  */
 public interface IFluidHatchManager {
 
-    IFluidHandler getFluidHandler();
+    ISlotFluidHandler getFluidHandler();
 
     /**
      * Attempt to setup block as input hatch

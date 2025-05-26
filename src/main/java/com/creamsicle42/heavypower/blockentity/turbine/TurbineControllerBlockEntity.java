@@ -7,6 +7,7 @@ import com.creamsicle42.heavypower.block.ModBlocks;
 import com.creamsicle42.heavypower.block.custom.misc.IMachineHatchBlock;
 import com.creamsicle42.heavypower.blockentity.misc.*;
 import com.creamsicle42.heavypower.blockentity.ModBlockEntities;
+import com.creamsicle42.heavypower.misc.ISlotFluidHandler;
 import com.creamsicle42.heavypower.recipe.ModRecipeTypes;
 import com.creamsicle42.heavypower.recipe.inputs.TurbineRecipeInput;
 import com.creamsicle42.heavypower.recipe.types.TurbineRecipe;
@@ -640,8 +641,8 @@ public class TurbineControllerBlockEntity extends BlockEntity implements ISimple
     }
 
     @Override
-    public IFluidHandler getFluidHandler() {
-        return level.getCapability(Capabilities.FluidHandler.BLOCK, getBlockPos(), Direction.EAST);
+    public ISlotFluidHandler getFluidHandler() {
+        return new FluidHandler(this);
     }
 
     public static class ItemHandler implements IItemHandlerModifiable {
@@ -770,7 +771,7 @@ public class TurbineControllerBlockEntity extends BlockEntity implements ISimple
         }
     }
 
-    public static class FluidHandler implements IFluidHandler {
+    public static class FluidHandler implements ISlotFluidHandler {
 
         private final TurbineControllerBlockEntity controller;
 

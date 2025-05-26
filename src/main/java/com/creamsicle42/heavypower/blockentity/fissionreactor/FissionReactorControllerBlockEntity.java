@@ -5,6 +5,7 @@ import com.creamsicle42.heavypower.block.ModBlocks;
 import com.creamsicle42.heavypower.block.custom.misc.IMachineHatchBlock;
 import com.creamsicle42.heavypower.blockentity.ModBlockEntities;
 import com.creamsicle42.heavypower.blockentity.misc.*;
+import com.creamsicle42.heavypower.misc.ISlotFluidHandler;
 import com.creamsicle42.heavypower.misc.MultiblockHelper;
 import com.creamsicle42.heavypower.misc.SerializationHelper;
 import com.creamsicle42.heavypower.recipe.ModRecipeTypes;
@@ -227,7 +228,7 @@ public class FissionReactorControllerBlockEntity extends BlockEntity implements 
     }
 
     @Override
-    public IFluidHandler getFluidHandler() {
+    public ISlotFluidHandler getFluidHandler() {
         return tank;
     }
 
@@ -463,7 +464,7 @@ public class FissionReactorControllerBlockEntity extends BlockEntity implements 
 
 
 
-    private static class ReactorTank implements IFluidHandler {
+    private static class ReactorTank implements ISlotFluidHandler {
         public static final String COOL_TAG = "CoolTank";
         public static final String HOT_TAG = "HotTank";
 
