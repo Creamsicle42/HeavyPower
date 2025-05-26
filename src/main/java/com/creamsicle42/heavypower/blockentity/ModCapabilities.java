@@ -36,31 +36,17 @@ public class ModCapabilities {
                         new TurbineControllerBlockEntity.ItemHandler((TurbineControllerBlockEntity) pBlockEntity),
                 ModBlocks.TURBINE_CONTROLLER.get()
         );
-        pEvent.registerBlock(
+
+        pEvent.registerBlockEntity(
                 Capabilities.FluidHandler.BLOCK,
-                (pLevel, pPos, pState, pBlockEntity, pSide) -> {
-                    //if(pState.hasProperty(BlockStateProperties.FACING) && pState.getValue(BlockStateProperties.FACING) != pSide) return null;
-                    if (pBlockEntity == null) return null;
-                    return new SimpleFluidHatchBlockEntity.FluidHandler((SimpleFluidHatchBlockEntity) pBlockEntity);
-                },
-                ModBlocks.TURBINE_FLUID_INPUT_HATCH.get(),
-                ModBlocks.TURBINE_FLUID_OUTPUT_HATCH.get(),
-                ModBlocks.FISSION_REACTOR_OUTPUT_HATCH.get(),
-                ModBlocks.FISSION_REACTOR_INPUT_HATCH.get(),
-                ModBlocks.EVAPORATION_TOWER_OUTPUT_HATCH.get(),
-                ModBlocks.EVAPORATION_TOWER_INPUT_HATCH.get(),
-                ModBlocks.CENTRIFUGE_INPUT_HATCH.get(),
-                ModBlocks.CENTRIFUGE_OUTPUT_HATCH.get()
+                ModBlockEntities.FLUID_HATCH_BE.get(),
+                SimpleFluidHatchBlockEntity::getFluidHandler
         );
 
-        pEvent.registerBlock(
+        pEvent.registerBlockEntity(
                 Capabilities.ItemHandler.BLOCK,
-                ((level, pos, state, blockEntity, context) -> {
-                    if(state.hasProperty(BlockStateProperties.FACING) && state.getValue(BlockStateProperties.FACING) != context) return null;
-                    return new SimpleItemBusBlockEntity.ItemHandler((SimpleItemBusBlockEntity) blockEntity);
-                }),
-                ModBlocks.CENTRIFUGE_OUTPUT_BUS.get(),
-                ModBlocks.CENTRIFUGE_INPUT_BUS.get()
+                ModBlockEntities.SIMPLE_ITEM_BUS_BE.get(),
+                SimpleItemBusBlockEntity::getCapability
         );
 
         pEvent.registerBlock(

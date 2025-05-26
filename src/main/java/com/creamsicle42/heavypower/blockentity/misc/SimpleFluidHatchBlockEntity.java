@@ -12,6 +12,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
@@ -72,6 +73,14 @@ public class SimpleFluidHatchBlockEntity extends SimpleMachinePartBlockEntity{
 
     public void setTargetTank(int targetTank) {
         this.targetTank = targetTank;
+    }
+
+
+    public IFluidHandler getFluidHandler(Direction face) {
+        if (getBlockState().hasProperty(BlockStateProperties.FACING) && getBlockState().getValue(BlockStateProperties.FACING) != face) {
+            return null;
+        }
+        return new FluidHandler(this);
     }
 
 

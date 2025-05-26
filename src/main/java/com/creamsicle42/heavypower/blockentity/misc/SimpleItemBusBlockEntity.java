@@ -2,12 +2,14 @@ package com.creamsicle42.heavypower.blockentity.misc;
 
 import com.creamsicle42.heavypower.blockentity.ModBlockEntities;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.items.IItemHandler;
@@ -50,6 +52,13 @@ public class SimpleItemBusBlockEntity extends SimpleMachinePartBlockEntity{
     public void setIO(boolean in, boolean out) {
         this.allowInput = in;
         this.allowOutput = out;
+    }
+
+    public IItemHandler getCapability(Direction face) {
+        if (getBlockState().hasProperty(BlockStateProperties.FACING) && getBlockState().getValue(BlockStateProperties.FACING) != face) {
+            return null;
+        }
+        return new ItemHandler(this);
     }
 
     public void setTargetSlot(int targetSlot) {
