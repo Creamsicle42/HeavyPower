@@ -26,6 +26,8 @@ import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.items.SlotItemHandler;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -36,11 +38,13 @@ public class GenericProcessingMachineBlockEntity extends BlockEntity implements 
     public static final String MAX_EXTENTS_TAG = "MaxExtents";
     static final String STATS_TAG = "Stats";
     static final String FLUID_HANDLER_TAG = "FluidHandler";
+    static final String ITEM_HANDLER_TAG = "ItemHandler";
 
     private BlockPos minExtents;
     private BlockPos maxExtents;
     private MultiblockStats stats;
     private FluidHandler fluidHandler;
+    private ItemStackHandler itemHandler;
     private boolean queueCapInvalidate;
 
     public GenericProcessingMachineBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
@@ -54,6 +58,7 @@ public class GenericProcessingMachineBlockEntity extends BlockEntity implements 
         if (maxExtents != null) tag.putLong(MAX_EXTENTS_TAG, maxExtents.asLong()) ;
         if (stats != null) tag.put(STATS_TAG, stats.toTag());
         if (fluidHandler != null) tag.put(FLUID_HANDLER_TAG, fluidHandler.toTag(new CompoundTag(), registries));
+        if (itemHandler != null) tag.put(ITEM_HANDLER_TAG, itemHandler.serializeNBT(registries));
     }
 
     @Override
@@ -74,6 +79,12 @@ public class GenericProcessingMachineBlockEntity extends BlockEntity implements 
                     getFluidInputStackLimit() * stats.numParallels,
                     getFluidInputSlotCount()
             );
+        }
+        itemHandler = createItemHandler(
+                getItemInputSlotCount() + getItemOutputSlotCount(),
+                getItemInputStackLimit() * stats.numParallels);
+        if (tag.contains(ITEM_HANDLER_TAG)) {
+            itemHandler.deserializeNBT(registries, tag.getCompound(ITEM_HANDLER_TAG));
         }
         queueCapInvalidate = true;
 
@@ -177,7 +188,7 @@ public class GenericProcessingMachineBlockEntity extends BlockEntity implements 
 
     @Override
     public IItemHandler getItemHandler() {
-        return null;
+        return itemHandler;
     }
 
     /**
@@ -195,7 +206,7 @@ public class GenericProcessingMachineBlockEntity extends BlockEntity implements 
 
         level.setBlockAndUpdate(pos, hatchState.setValue(BlockStateProperties.FACING, face));
 
-        if (level.getBlockEntity(pos) instanceof SimpleFluidHatchBlockEntity hatch) {
+        if (level.getBlockEntity(pos) instanceof SimpleItemBusBlockEntity hatch) {
             hatch.setIO(true, false);
             hatch.setController(getBlockPos());
             setupHatch(pos);
@@ -220,7 +231,7 @@ public class GenericProcessingMachineBlockEntity extends BlockEntity implements 
 
         level.setBlockAndUpdate(pos, hatchState.setValue(BlockStateProperties.FACING, face));
 
-        if (level.getBlockEntity(pos) instanceof SimpleFluidHatchBlockEntity hatch) {
+        if (level.getBlockEntity(pos) instanceof SimpleItemBusBlockEntity hatch) {
             hatch.setIO(false, true);
             hatch.setController(getBlockPos());
             setupHatch(pos);
@@ -239,6 +250,13 @@ public class GenericProcessingMachineBlockEntity extends BlockEntity implements 
     public void onComponentBreak(BlockPos componentPos) {
         if (level == null) {return;}
         ArrayList<ItemStack> itemsToDrop = getBreakItems();
+
+        for (int i = 0; i < itemHandler.getSlots(); i++) {
+            if (!itemHandler.getStackInSlot(i).isEmpty()) {
+                itemsToDrop.add(itemHandler.getStackInSlot(i).copy());
+            }
+        }
+
         for (BlockPos compPos: MultiblockHelper.getAreaIter(minExtents, maxExtents)) {
             BlockState breakState = level.getBlockState(compPos);
             if (breakState.getBlock() instanceof IMachineHatchBlock hatchBlock) {
@@ -254,6 +272,14 @@ public class GenericProcessingMachineBlockEntity extends BlockEntity implements 
         Containers.dropContents(level, componentPos, NonNullList.copyOf(itemsToDrop));
     }
 
+    static ItemStackHandler createItemHandler(int stacks, int slotLimit) {
+        return new ItemStackHandler(stacks) {
+            @Override
+            protected int getStackLimit(int slot, ItemStack stack) {
+                return slotLimit;
+            }
+        };
+    }
 
     public static boolean tryFormStructure(BlockPos baseControllerPos, Direction face, ServerLevel level, TagKey<Block> formationTag, Map<BlockState, BlockState> formationMap, TagKey<Block> controllerReplace, BlockState controllerState) {
         MultiblockHelper.WorldArea formationArea = MultiblockHelper.getEncompassingRect(baseControllerPos, formationTag, level).orElse(null);
@@ -282,6 +308,9 @@ public class GenericProcessingMachineBlockEntity extends BlockEntity implements 
                     controllerBlockEntity.getFluidInputStackLimit() * controllerBlockEntity.stats.numParallels,
                     controllerBlockEntity.getFluidInputSlotCount()
             );
+            controllerBlockEntity.itemHandler = createItemHandler(
+                    controllerBlockEntity.getItemInputSlotCount() + controllerBlockEntity.getItemOutputSlotCount(),
+                    controllerBlockEntity.getItemInputStackLimit() * controllerBlockEntity.stats.numParallels);
             controllerBlockEntity.minExtents = formationArea.minPos();
             controllerBlockEntity.maxExtents = formationArea.maxPos();
             controllerBlockEntity.queueCapInvalidate = true;
@@ -654,4 +683,5 @@ public class GenericProcessingMachineBlockEntity extends BlockEntity implements 
             return stackToUse.copyWithAmount(stackToUse.getAmount() - drainAmmount);
         }
     }
+
 }

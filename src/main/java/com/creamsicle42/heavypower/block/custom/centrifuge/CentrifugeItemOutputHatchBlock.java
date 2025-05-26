@@ -84,8 +84,7 @@ public class CentrifugeItemOutputHatchBlock extends BaseEntityBlock implements I
      */
     @Override
     public ItemStack getDeconstructionItemStack() {
-        // TODO: Update Item Stack
-        return new ItemStack(ModItems.FLUID_OUTPUT_HATCH_COMPONENTS.get());
+        return new ItemStack(ModItems.ITEM_INPUT_HATCH_COMPONENTS.get());
     }
 
     /**

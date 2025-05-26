@@ -351,9 +351,7 @@ public class FissionReactorControllerBlockEntity extends BlockEntity implements 
 
             @Override
             public @NotNull ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
-                System.out.println("Inserting " + stack + " into slot " + slot);
                 ItemStack hold = super.insertItem(slot,stack,simulate);
-                System.out.println("Slots is now " + stacks);
                 return hold;
             }
         };
