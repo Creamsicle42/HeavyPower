@@ -77,7 +77,7 @@ public class SimpleFluidHatchBlockEntity extends SimpleMachinePartBlockEntity{
 
 
     public IFluidHandler getFluidHandler(Direction face) {
-        if (getBlockState().hasProperty(BlockStateProperties.FACING) && getBlockState().getValue(BlockStateProperties.FACING) != face) {
+        if (face != null && getBlockState().hasProperty(BlockStateProperties.FACING) && getBlockState().getValue(BlockStateProperties.FACING) != face) {
             return null;
         }
         return new FluidHandler(this);
