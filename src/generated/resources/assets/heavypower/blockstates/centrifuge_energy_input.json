@@ -1,7 +1,55 @@
 {
-  "variants": {
-    "": {
-      "model": "heavypower:block/centrifuge_energy_input"
+  "multipart": [
+    {
+      "apply": {
+        "model": "heavypower:block/centrifuge_energy_input/down"
+      },
+      "when": {
+        "facing": "down"
+      }
+    },
+    {
+      "apply": {
+        "model": "heavypower:block/centrifuge_energy_input/up"
+      },
+      "when": {
+        "facing": "up"
+      }
+    },
+    {
+      "apply": {
+        "model": "heavypower:block/centrifuge_energy_input/north"
+      },
+      "when": {
+        "facing": "north"
+      }
+    },
+    {
+      "apply": {
+        "model": "heavypower:block/centrifuge_energy_input/north",
+        "y": 180
+      },
+      "when": {
+        "facing": "south"
+      }
+    },
+    {
+      "apply": {
+        "model": "heavypower:block/centrifuge_energy_input/north",
+        "y": 90
+      },
+      "when": {
+        "facing": "east"
+      }
+    },
+    {
+      "apply": {
+        "model": "heavypower:block/centrifuge_energy_input/north",
+        "y": 270
+      },
+      "when": {
+        "facing": "west"
+      }
     }
-  }
+  ]
 }

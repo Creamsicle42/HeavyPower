@@ -32,6 +32,7 @@ public class ModEnUsLangProvider extends LanguageProvider {
         addItem(ModItems.FLUID_OUTPUT_HATCH_COMPONENTS, "Fluid Output Hatch Components");
         addItem(ModItems.ITEM_INPUT_HATCH_COMPONENTS, "Item Input Hatch Components");
         addItem(ModItems.ITEM_OUTPUT_HATCH_COMPONENTS, "Item Output Hatch Components");
+        addItem(ModItems.ENERGY_INPUT_HATCH_COMPONENTS, "Energy Input Hatch Components");
 
         addItem(ModItems.SMALL_IRON_TURBINE_BLADE, "Small Iron Turbine Blade");
         addItem(ModItems.BLANK_DYNAMO, "Blank Dynamo");

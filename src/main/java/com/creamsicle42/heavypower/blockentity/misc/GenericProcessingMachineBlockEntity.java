@@ -22,6 +22,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.neoforged.neoforge.energy.EnergyStorage;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
@@ -39,12 +40,14 @@ public class GenericProcessingMachineBlockEntity extends BlockEntity implements 
     static final String STATS_TAG = "Stats";
     static final String FLUID_HANDLER_TAG = "FluidHandler";
     static final String ITEM_HANDLER_TAG = "ItemHandler";
+    static final String ENERGY_STORAGE_TAG = "Energy";
 
     private BlockPos minExtents;
     private BlockPos maxExtents;
     private MultiblockStats stats;
     private FluidHandler fluidHandler;
     private ItemStackHandler itemHandler;
+    private EnergyStorage energyStorage;
     private boolean queueCapInvalidate;
 
     public GenericProcessingMachineBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
@@ -59,6 +62,7 @@ public class GenericProcessingMachineBlockEntity extends BlockEntity implements 
         if (stats != null) tag.put(STATS_TAG, stats.toTag());
         if (fluidHandler != null) tag.put(FLUID_HANDLER_TAG, fluidHandler.toTag(new CompoundTag(), registries));
         if (itemHandler != null) tag.put(ITEM_HANDLER_TAG, itemHandler.serializeNBT(registries));
+        if (energyStorage != null) tag.put(ENERGY_STORAGE_TAG, energyStorage.serializeNBT(registries));
     }
 
     @Override
@@ -80,12 +84,22 @@ public class GenericProcessingMachineBlockEntity extends BlockEntity implements 
                     getFluidInputSlotCount()
             );
         }
+
         itemHandler = createItemHandler(
                 getItemInputSlotCount() + getItemOutputSlotCount(),
                 getItemInputStackLimit() * stats.numParallels);
         if (tag.contains(ITEM_HANDLER_TAG)) {
             itemHandler.deserializeNBT(registries, tag.getCompound(ITEM_HANDLER_TAG));
         }
+
+        energyStorage = createEnergyStorage(
+                getEnergyBuffer() * stats.numParallels
+        );
+
+        if (tag.contains(ENERGY_STORAGE_TAG)) {
+            energyStorage.deserializeNBT(registries, tag.getCompound(ENERGY_STORAGE_TAG));
+        }
+
         queueCapInvalidate = true;
 
     }
@@ -127,7 +141,7 @@ public class GenericProcessingMachineBlockEntity extends BlockEntity implements 
 
     @Override
     public IEnergyStorage getEnergyStorage() {
-        return null;
+        return energyStorage;
     }
 
     @Override
@@ -251,9 +265,11 @@ public class GenericProcessingMachineBlockEntity extends BlockEntity implements 
         if (level == null) {return;}
         ArrayList<ItemStack> itemsToDrop = getBreakItems();
 
-        for (int i = 0; i < itemHandler.getSlots(); i++) {
-            if (!itemHandler.getStackInSlot(i).isEmpty()) {
-                itemsToDrop.add(itemHandler.getStackInSlot(i).copy());
+        if (this.itemHandler != null) {
+            for (int i = 0; i < itemHandler.getSlots(); i++) {
+                if (!itemHandler.getStackInSlot(i).isEmpty()) {
+                    itemsToDrop.add(itemHandler.getStackInSlot(i).copy());
+                }
             }
         }
 
@@ -279,6 +295,10 @@ public class GenericProcessingMachineBlockEntity extends BlockEntity implements 
                 return slotLimit;
             }
         };
+    }
+
+    static EnergyStorage createEnergyStorage(int maxStorage) {
+        return new EnergyStorage(maxStorage);
     }
 
     public static boolean tryFormStructure(BlockPos baseControllerPos, Direction face, ServerLevel level, TagKey<Block> formationTag, Map<BlockState, BlockState> formationMap, TagKey<Block> controllerReplace, BlockState controllerState) {
@@ -311,6 +331,9 @@ public class GenericProcessingMachineBlockEntity extends BlockEntity implements 
             controllerBlockEntity.itemHandler = createItemHandler(
                     controllerBlockEntity.getItemInputSlotCount() + controllerBlockEntity.getItemOutputSlotCount(),
                     controllerBlockEntity.getItemInputStackLimit() * controllerBlockEntity.stats.numParallels);
+            controllerBlockEntity.energyStorage = createEnergyStorage(
+                    controllerBlockEntity.getEnergyBuffer() * controllerBlockEntity.stats.numParallels
+            );
             controllerBlockEntity.minExtents = formationArea.minPos();
             controllerBlockEntity.maxExtents = formationArea.maxPos();
             controllerBlockEntity.queueCapInvalidate = true;
@@ -407,6 +430,8 @@ public class GenericProcessingMachineBlockEntity extends BlockEntity implements 
     protected int getItemInputStackLimit() {
         return 64;
     }
+
+    protected int getEnergyBuffer() {return 1024;}
 
     public record MultiblockStats(int numParallels, double boostFactor) {
         private static final String NUM_PARALLELS_TAG = "NumParallels";

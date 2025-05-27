@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "heavypower:item/energy_input_hatch_components"
+  }
+}

@@ -23,6 +23,7 @@ public class ModCreativeModeTab {
                         output.accept(ModItems.FLUID_OUTPUT_HATCH_COMPONENTS.get());
                         output.accept(ModItems.ITEM_INPUT_HATCH_COMPONENTS.get());
                         output.accept(ModItems.ITEM_OUTPUT_HATCH_COMPONENTS.get());
+                        output.accept(ModItems.ENERGY_INPUT_HATCH_COMPONENTS.get());
                         output.accept(ModItems.COMPUTER_HATCH_COMPONENTS.get());
                         output.accept(ModItems.FISSION_REACTOR_CONTROL_COMPONENT.get());
                         output.accept(ModItems.URANIUM_ROD.get());

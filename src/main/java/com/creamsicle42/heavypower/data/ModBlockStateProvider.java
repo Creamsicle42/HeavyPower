@@ -54,18 +54,19 @@ public class ModBlockStateProvider extends BlockStateProvider {
         simpleBlock(ModBlocks.CENTRIFUGE_AUX_MOTOR.get());
         simpleBlock(ModBlocks.CENTRIFUGE_CASING.get());
         simpleBlock(ModBlocks.CENTRIFUGE_CONTROLLER.get());
-        simpleBlock(ModBlocks.CENTRIFUGE_ENERGY_INPUT.get());
 
         ResourceLocation centrifugeBaseTexture = HeavyPower.modResource("block/centrifuge_casing");
         ResourceLocation centrifugeFluidInputTexture = HeavyPower.modResource("block/centrifuge_input_hatch");
         ResourceLocation centrifugeFluidOutputTexture = HeavyPower.modResource("block/centrifuge_output_hatch");
         ResourceLocation centrifugeItemInputTexture = HeavyPower.modResource("block/centrifuge_input_bus");
         ResourceLocation centrifugeItemOutputTexture = HeavyPower.modResource("block/centrifuge_output_bus");
+        ResourceLocation centrifugeEnergyInputTexture = HeavyPower.modResource("block/centrifuge_energy_input");
 
         createDirectionalHatch("centrifuge_input_hatch", ModBlocks.CENTRIFUGE_INPUT_HATCH.get(), centrifugeFluidInputTexture, centrifugeBaseTexture);
         createDirectionalHatch("centrifuge_output_hatch", ModBlocks.CENTRIFUGE_OUTPUT_HATCH.get(), centrifugeFluidOutputTexture, centrifugeBaseTexture);
         createDirectionalHatch("centrifuge_input_bus", ModBlocks.CENTRIFUGE_INPUT_BUS.get(), centrifugeItemInputTexture, centrifugeBaseTexture);
         createDirectionalHatch("centrifuge_output_bus", ModBlocks.CENTRIFUGE_OUTPUT_BUS.get(), centrifugeItemOutputTexture, centrifugeBaseTexture);
+        createDirectionalHatch("centrifuge_energy_input", ModBlocks.CENTRIFUGE_ENERGY_INPUT.get(), centrifugeEnergyInputTexture, centrifugeBaseTexture);
 
     }
 

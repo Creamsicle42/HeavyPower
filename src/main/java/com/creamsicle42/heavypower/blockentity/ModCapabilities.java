@@ -2,6 +2,7 @@ package com.creamsicle42.heavypower.blockentity;
 
 import com.creamsicle42.heavypower.block.ModBlocks;
 import com.creamsicle42.heavypower.blockentity.fissionreactor.FissionRodBlockEntity;
+import com.creamsicle42.heavypower.blockentity.misc.SimpleEnergyInputBlockEntity;
 import com.creamsicle42.heavypower.blockentity.misc.SimpleEnergyOutputBlockEntity;
 import com.creamsicle42.heavypower.blockentity.misc.SimpleFluidHatchBlockEntity;
 import com.creamsicle42.heavypower.HeavyPower;
@@ -47,6 +48,12 @@ public class ModCapabilities {
                 Capabilities.ItemHandler.BLOCK,
                 ModBlockEntities.SIMPLE_ITEM_BUS_BE.get(),
                 SimpleItemBusBlockEntity::getCapability
+        );
+
+        pEvent.registerBlockEntity(
+                Capabilities.EnergyStorage.BLOCK,
+                ModBlockEntities.ENERGY_INPUT_BE.get(),
+                SimpleEnergyInputBlockEntity::getEnergyHandler
         );
 
         pEvent.registerBlock(

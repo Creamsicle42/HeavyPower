@@ -73,9 +73,6 @@ public class CentrifugeEnergyInputHatchBlock extends BaseEntityBlock implements 
         return super.onDestroyedByPlayer(state, level, pos, player, willHarvest, fluid);
     }
 
-
-
-
     /**
      * Get the item stack to be returned when the machine associated with this block is deconstructed
      *

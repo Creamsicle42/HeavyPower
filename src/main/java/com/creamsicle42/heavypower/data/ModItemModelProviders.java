@@ -29,5 +29,6 @@ public class ModItemModelProviders extends ItemModelProvider {
         basicItem(ModItems.CENTRIFUGE_CONTROL_COMPONENT.get());
         basicItem(ModItems.ITEM_OUTPUT_HATCH_COMPONENTS.get());
         basicItem(ModItems.ITEM_INPUT_HATCH_COMPONENTS.get());
+        basicItem(ModItems.ENERGY_INPUT_HATCH_COMPONENTS.get());
     }
 }

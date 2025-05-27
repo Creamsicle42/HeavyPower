@@ -2,14 +2,24 @@ package com.creamsicle42.heavypower.blockentity.misc;
 
 import com.creamsicle42.heavypower.blockentity.ModBlockEntities;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.neoforged.neoforge.energy.IEnergyStorage;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 
 public class SimpleEnergyInputBlockEntity extends SimpleMachinePartBlockEntity{
     public SimpleEnergyInputBlockEntity(BlockPos pos, BlockState blockState) {
         super(ModBlockEntities.ENERGY_INPUT_BE.get(), pos, blockState);
+    }
+
+    public IEnergyStorage getEnergyHandler(Direction face) {
+        if (face != null && getBlockState().hasProperty(BlockStateProperties.FACING) && getBlockState().getValue(BlockStateProperties.FACING) != face) {
+            return null;
+        }
+        return new EnergyHandler(this);
     }
 
     public SimpleEnergyInputBlockEntity(BlockEntityType<?> pType, BlockPos pos, BlockState blockState) {
